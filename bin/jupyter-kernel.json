@@ -2,7 +2,7 @@
     "language": "python",
     "display_name": "cosmic_voids",
     "env": {
-        "DESI_ROOT": "/global/cfs/cdirs/desi",
+        "DESI_ROOT": "/global/cfs/cdirs/desi"
     },
     "argv": [
         "shifter",
