@@ -1,0 +1,13 @@
+{
+    "language": "python",
+    "display_name": "cosmic_voids",
+    "env": {
+        "DESI_ROOT": "/global/cfs/cdirs/desi",
+    },
+    "argv": [
+        "shifter",
+        "--image=docker:desihub/cosmic_voids:latest",
+        "/src/cosmic_voids/bin/jupyter-kernel.sh",
+        "{connection_file}"
+    ]
+}
