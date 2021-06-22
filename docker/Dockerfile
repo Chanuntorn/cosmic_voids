@@ -74,7 +74,7 @@ RUN cd vide \
 
 RUN git clone https://github.com/Chanuntorn/cosmic_voids cosmic_voids \
     && cd cosmic_voids && git describe --always
-RUN cd /src/cosmic_voids && git pull && git describe --always && echo 1
+RUN cd /src/cosmic_voids && git pull && git describe --always && echo 2
 
 ENV PYTHONPATH /src/cosmic_voids/py:$PYTHONPATH
 ENV PATH /src/cosmic_voids/bin:$PATH
