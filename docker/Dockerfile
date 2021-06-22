@@ -1,15 +1,20 @@
 FROM ubuntu:20.04
 
-RUN apt -y update && apt install -y apt-utils && echo 1
+RUN apt -y update && apt install -y apt-utils && echo 2
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt install -y --no-install-recommends \
     make \
+    cmake \
+    m4 \
+    g++ \
     gcc \
-    gfortran \
     git \
-    subversion \
     file \
+    libcairo2 \
+    libcairo2-dev \
+    libsigc++-2.0-dev \
+    libfreetype-dev \
     emacs \
     less \
     patch \
@@ -63,7 +68,8 @@ WORKDIR /src
 
 RUN git clone https://bitbucket.org/cosmicvoids/vide_public/src/master vide
 RUN cd vide \
-    && python setup.py build
+    && python setup.py build \
+    && python setup.py install
 
 RUN git clone https://github.com/Chanuntorn/cosmic_voids cosmic_voids \
     && cd cosmic_voids && git describe --always
@@ -97,6 +103,6 @@ RUN echo "export PS1='[container] \\u@\\h:\\w$ '" >> $HOME/.bashrc \
   && echo 1
 
 # Curses upon you, astropy
-RUN wget -O /opt/conda/lib/python3.8/site-packages/astropy/utils/iers/data/Leap_Second.dat \
-    https://raw.githubusercontent.com/astropy/astropy/master/astropy/utils/iers/data/Leap_Second.dat \
-    && rm $HOME/.wget-hsts
+#RUN wget -O /opt/conda/lib/python3.8/site-packages/astropy/utils/iers/data/Leap_Second.dat \
+#    https://raw.githubusercontent.com/astropy/astropy/master/astropy/utils/iers/data/Leap_Second.dat \
+#    && rm $HOME/.wget-hsts
