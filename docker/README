@@ -1,0 +1,22 @@
+Build a Docker container for the DESI voids project.
+====================================================
+
+```
+docker build . -t desihub/cosmicvoids
+docker push desihub/cosmicvoids:latest
+
+docker tag desihub/cosmicvoids:latest desihub/cosmicvoids:v0.0.1
+docker push desihub/cosmicvoids:v0.0.1
+```
+
+To enter the container (with a shell prompt) on a laptop do:
+```
+docker pull desihub/cosmicvoids:latest
+docker run -it desihub/cosmicvoids:latest
+```
+
+Or at NERSC:
+```
+shifterimg pull docker:desihub/cosmicvoids:latest
+shifter --image docker:desihub/cosmicvoids:latest bash
+```
