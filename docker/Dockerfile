@@ -69,7 +69,8 @@ WORKDIR /src
 RUN git clone https://bitbucket.org/cosmicvoids/vide_public/src/master vide
 RUN cd vide \
     && python setup.py build \
-    && python setup.py install
+    && python setup.py install \
+    && rm -rf build
 
 RUN git clone https://github.com/Chanuntorn/cosmic_voids cosmic_voids \
     && cd cosmic_voids && git describe --always
@@ -101,8 +102,3 @@ RUN echo "export PS1='[container] \\u@\\h:\\w$ '" >> $HOME/.bashrc \
   # Make ipython config files readable!?!!
   && chmod -R a+rwX $HOME/.ipython \
   && echo 1
-
-# Curses upon you, astropy
-#RUN wget -O /opt/conda/lib/python3.8/site-packages/astropy/utils/iers/data/Leap_Second.dat \
-#    https://raw.githubusercontent.com/astropy/astropy/master/astropy/utils/iers/data/Leap_Second.dat \
-#    && rm $HOME/.wget-hsts
