@@ -1,7 +1,8 @@
 {
     "language": "python",
-    "display_name": "cosmic_voids",
+    "display_name": "docker: cosmic voids",
     "env": {
+        "REALHOME": "${HOME}",
         "DESI_ROOT": "/global/cfs/cdirs/desi"
     },
     "argv": [
