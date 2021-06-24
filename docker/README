@@ -20,3 +20,9 @@ Or at NERSC:
 shifterimg pull docker:desihub/cosmicvoids:latest
 shifter --image docker:desihub/cosmicvoids:latest bash
 ```
+
+To install the jupyter kernel do:
+```
+mkdir -p ~/.local/share/jupyter/kernels/cosmicvoids
+wget -O ~/.local/share/jupyter/kernels/cosmicvoids/kernel.json https://raw.githubusercontent.com/Chanuntorn/cosmic_voids/main/bin/jupyter-kernel.json
+```
