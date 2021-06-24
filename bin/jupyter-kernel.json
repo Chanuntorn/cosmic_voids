@@ -7,7 +7,7 @@
     },
     "argv": [
         "shifter",
-        "--image=docker:desihub/cosmic_voids:latest",
+        "--image=docker:desihub/cosmicvoids:latest",
         "/src/cosmic_voids/bin/jupyter-kernel.sh",
         "{connection_file}"
     ]
