@@ -1,5 +1,27 @@
 
 #editted plotNumber Function
+import os
+import numpy as np
+import pylab as plt
+
+
+def getArray(objectList, attr):
+
+  if hasattr(objectList[0], attr):
+    ndim = np.shape( np.atleast_1d( getattr(objectList[0], attr) ) )[0]
+    attrArr = np.zeros(( len(objectList), ndim ))
+
+    for idim in range(ndim):
+      attrArr[:,idim] = np.fromiter((np.atleast_1d(getattr(v, attr))[idim] \
+                                    for v in objectList), float )
+
+    if ndim == 1: attrArr = attrArr[:,0]
+
+    return attrArr
+  else:
+    print(" Attribute", attr, "not found!")
+    return -1
+
 
 def plotnumfunction(catalogList,figDir="./",plotName="numberfunc",cumulative=True,binWidth=1):
     '''Plots a cumulative number function. This function takes in a list of void catalogs (or just one), an output directory for the figures made, a prefix for the plot titles, if cumulative is True it plots cumulative number function, and binwidth is the width of histograms in Mps/h. The function returns ellipDistList which is an array of len(catalogList), each element has array of size bins +/- 1 sigma.'''
