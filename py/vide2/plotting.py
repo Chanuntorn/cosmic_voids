@@ -4,7 +4,36 @@ import os
 import numpy as np
 import pylab as plt
 
+#from .plotDefs
+LIGHT_SPEED = 299792.458 
 
+colorList = ['r', 'b', 'g', 'y', 'c', 'm', 
+             'darkred', 'grey',
+             'orange', 'darkblue',
+             'indigo', 'lightseagreen', 'maroon', 'olive',
+             'royalblue', 'palevioletred', 'seagreen', 'tomato',
+             'aquamarine', 'darkslateblue',
+             'khaki', 'lawngreen', 'mediumorchid',
+             'orangered', 'thistle'
+             'yellowgreen']
+
+linewidth = 4
+fontsize = 12
+
+#from vide.plotUtil
+def fill_between(x, y1, y2=0, ax=None, **kwargs):
+    """Plot filled region between `y1` and `y2`.
+
+    This function works exactly the same as matplotlib's fill_between, except
+    that it also plots a proxy artist (specifically, a rectangle of 0 size)
+    so that it can be added it appears on a legend.
+    """
+    ax = ax if ax is not None else plt.gca()
+    ax.fill_between(x, y1, y2, interpolate=True, **kwargs)
+    p = plt.Rectangle((0, 0), 0, 0, **kwargs)
+    ax.add_patch(p)
+
+#from vide.voidUtil
 def getArray(objectList, attr):
 
   if hasattr(objectList[0], attr):
@@ -38,6 +67,8 @@ def plotnumfunction(catalogList,figDir="./",plotName="numberfunc",cumulative=Tru
 
     if cumulative:
         plt.ylabel(r"log ($n$ (> R) [$h^3$ Gpc$^{-3}$])", fontsize=14)
+
+        ellipDistList = []
     else:
         plt.ylabel(r"log ($dn/dR$ [$h^3$ Gpc$^{-3}$])", fontsize=14)
 
@@ -51,12 +82,15 @@ def plotnumfunction(catalogList,figDir="./",plotName="numberfunc",cumulative=Tru
             maskFile = sample.maskFile
             boxVol = vp.getSurveyProps(maskFile,sample.zBoundary[0],sample.zBoundary[1],sample.zRange[0],
                                        sample.zRange[1], "all",selectionFuncFilee=sample.selFunFile)[0]
+            #print(boxVol)
+            
         else:
             boxVol = sample.boxLen*sample.boxLen*(sample.zBoundaryMpc[1] - sample.zBoundaryMpc[0])
+            #print(boxVol)
 
 
         boxVol *= 1.e-9 # Mpc->Gpc
-        bins = 100/binWidth
+        bins = int(100/binWidth)
         hist, binEdges = np.histogram(data, bins=bins, range=(0., 100.))
         binCenters = 0.5*(binEdges[1:] + binEdges[:-1])
 
@@ -80,6 +114,9 @@ def plotnumfunction(catalogList,figDir="./",plotName="numberfunc",cumulative=Tru
         upperbound = np.log10(upperbound/boxVol)
         lineColor = colorList[iSample]
         lineTitle = sample.fullName
+
+        print(lowerbound)
+        print(upperbound)
 
         trim = (lowerbound > .01)
         mean = mean[trim]
