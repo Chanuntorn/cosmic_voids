@@ -2,10 +2,9 @@
 #Editted Functions
 import os, pdb
 import numpy as np
-import pylab as plt
+import matplotlib.pyplot as plt
 
-from vide2.util import *
-
+from cosmic_voids.util import fill_between, getArray, cic, powcor, shellavg 
 
 def plotnumfunction(catalogList,figDir="./",plotName="numberfunc",cumulative=True,binWidth=1):
     '''Plots a cumulative number function. This function takes in a list of void catalogs (or just one), an output directory for the figures made, a prefix for the plot titles, if cumulative is True it plots cumulative number function, and binwidth is the width of histograms in Mps/h. The function returns ellipDistList which is an array of len(catalogList), each element has array of size bins +/- 1 sigma.'''
