@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-RUN apt -y update && apt install -y apt-utils && echo 2
+RUN apt -y update && apt install -y apt-utils && echo 3
 
 RUN DEBIAN_FRONTEND=noninteractive \
     apt install -y --no-install-recommends \
@@ -23,6 +23,10 @@ RUN DEBIAN_FRONTEND=noninteractive \
     libcfitsio-dev \
     libcfitsio-bin \
     libbz2-dev \
+    # openMPI
+    openmpi-bin \
+    openmpi-common \
+    libopenmpi-dev \
     python3 \
     python3-dev \
     python3-pip \
@@ -48,6 +52,8 @@ RUN for x in \
     requests \
     scikit-learn \
     healpy \
+    pyfftw \
+    cython \
     seaborn \
     photutils \
     ipython \
@@ -66,11 +72,16 @@ RUN ln -s /usr/bin/python3 /usr/bin/python
 RUN mkdir -p /src
 WORKDIR /src
 
-RUN git clone https://bitbucket.org/cosmicvoids/vide_public/src/master vide
-RUN cd vide \
-    && python setup.py build \
-    && python setup.py install \
-    && rm -rf build
+# RUN git clone https://bitbucket.org/cosmicvoids/vide_public/src/master vide
+# RUN cd vide \
+#     && python setup.py build \
+#     && python setup.py install \
+#     && rm -rf build
+
+RUN git clone https://github.com/seshnadathur/Revolver.git
+RUN cd Revolver \
+    && make clean \
+    && make
 
 RUN git clone https://github.com/Chanuntorn/cosmic_voids cosmic_voids \
     && cd cosmic_voids && git describe --always
@@ -101,4 +112,4 @@ RUN echo "export PS1='[container] \\u@\\h:\\w$ '" >> $HOME/.bashrc \
   && chmod -R a+rwX $HOME/.astropy \
   # Make ipython config files readable!?!!
   && chmod -R a+rwX $HOME/.ipython \
-  && echo 1
+  && echo 2
